@@ -1,0 +1,7 @@
+require: rubocop-rails
+
+Layout/LineLength:
+  Enabled: true
+  Max: 120
+  AutoCorrect: true
+  IgnoredPatterns: ['(\A|\s)#'] # не проверять комментарии. Особенно полезно для аннотаций в моделях.
