@@ -53,6 +53,8 @@ gem "bootsnap", require: false
 # Inspectation
 gem 'rubocop-rails', require: false
 gem 'rubocop-rspec', require: false
+# Generate random stuff
+gem 'faker'
 
 # ---end---
 
