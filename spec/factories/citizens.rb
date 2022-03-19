@@ -2,10 +2,7 @@
 
 FactoryBot.define do
   factory :citizen do
-    sequence(:name) do |n|
-      "Name_#{n}"
-    end
-
+    name { Faker::Name.unique.name }
     age { rand(0..90) }
     gender { ::Citizen::GENDERS.sample }
     state { 'alive' }
