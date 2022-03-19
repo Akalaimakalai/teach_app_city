@@ -1,7 +1,21 @@
-require: rubocop-rails
+require:
+  - rubocop-rails
+  - rubocop-rspec
+
+AllCops:
+  NewCops: enable
 
 Layout/LineLength:
   Enabled: true
   Max: 120
   AutoCorrect: true
   IgnoredPatterns: ['(\A|\s)#'] # не проверять комментарии. Особенно полезно для аннотаций в моделях.
+
+Style/FrozenStringLiteralComment:
+  Enabled: true
+
+Style/Documentation:
+  Enabled: false
+
+RSpec/NotToNot:
+  Enabled: false
