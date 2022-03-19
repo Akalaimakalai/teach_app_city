@@ -19,3 +19,12 @@ Style/Documentation:
 
 RSpec/NotToNot:
   Enabled: false
+
+RSpec/LetSetup:
+  Enabled: false
+
+RSpec/NamedSubject:
+  Enabled: false
+
+Naming/VariableNumber:
+  Enabled: false
