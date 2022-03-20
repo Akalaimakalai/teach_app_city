@@ -57,6 +57,8 @@ gem 'rubocop-rspec', require: false
 gem 'faker'
 # Serializers
 gem 'active_model_serializers'
+# Forms
+gem 'virtus'
 
 # ---end---
 
