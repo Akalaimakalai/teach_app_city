@@ -20,4 +20,12 @@ class CitizensController < ApplicationController
     use_case = ::Citizens::UpdateCitizen.new
     render json: use_case.call(form.attributes)
   end
+
+  def destroy
+    form = ::Citizens::DestroyCitizenForm.new(params.permit!)
+    form.validate!
+
+    use_case = ::Citizens::DestroyCitizen.new
+    render json: use_case.call(form.attributes)
+  end
 end
