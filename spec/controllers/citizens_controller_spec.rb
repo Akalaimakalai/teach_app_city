@@ -60,4 +60,31 @@ RSpec.describe CitizensController do
       it { expect { post :create, params: params }.to raise_error(ActiveModel::ValidationError) }
     end
   end
+
+  describe 'PUT #update' do
+    let(:citizen) { create(:citizen) }
+
+    describe 'Valid' do
+      let(:params) { citizen.attributes.merge(state: 'dead') }
+
+      it 'returns citizen json' do
+        put :update, params: params
+        expect(response.parsed_body).to eq(
+          {
+            'id' => Citizen.last.id,
+            'name' => citizen.name,
+            'age' => citizen.age,
+            'gender' => citizen.gender,
+            'state' => 'dead'
+          }
+        )
+      end
+    end
+
+    describe 'Invalid' do
+      let(:params) { citizen.attributes.merge(age: -5) }
+
+      it { expect { put :update, params: params }.to raise_error(ActiveModel::ValidationError) }
+    end
+  end
 end
