@@ -66,8 +66,16 @@ RSpec.configure do |config|
 
   # ===MY CONFIGS===
 
+  # definig form type
+  config.define_derived_metadata(file_path: Regexp.new('/spec/forms/')) do |metadata|
+    metadata[:type] = :form
+  end
+
   # add module from FactoryBot to rspec
   config.include FactoryBot::Syntax::Methods
+  # allow use shoulda_matchers methods for testing forms
+  config.include Shoulda::Matchers::ActiveModel, type: :form
+  config.include Shoulda::Matchers::ActiveRecord, type: :form
   # ---end---
 end
 
