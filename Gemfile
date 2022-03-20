@@ -55,6 +55,8 @@ gem 'rubocop-rails', require: false
 gem 'rubocop-rspec', require: false
 # Generate random stuff
 gem 'faker'
+# Serializers
+gem 'active_model_serializers'
 
 # ---end---
 
