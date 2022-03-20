@@ -18,6 +18,9 @@ RSpec/ExampleLength:
 Metrics/BlockLength:
   Enabled: true
   Max: 50
+  IgnoredMethods:
+    - configure
+    - describe
 
 Style/FrozenStringLiteralComment:
   Enabled: true
@@ -35,4 +38,7 @@ RSpec/NamedSubject:
   Enabled: false
 
 Naming/VariableNumber:
+  Enabled: false
+
+RSpec/ContextWording:
   Enabled: false

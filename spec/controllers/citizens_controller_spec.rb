@@ -29,4 +29,35 @@ RSpec.describe CitizensController do
       )
     end
   end
+
+  describe 'POST #create' do
+    let(:citizen) { build(:citizen) }
+
+    describe 'Valid' do
+      let(:params) { citizen.attributes }
+
+      it 'creates new citizen' do
+        expect { post :create, params: params }.to change(Citizen, :count).by(1)
+      end
+
+      it 'returns citizen json' do
+        post :create, params: params
+        expect(response.parsed_body).to eq(
+          {
+            'id' => Citizen.last.id,
+            'name' => citizen.name,
+            'age' => citizen.age,
+            'gender' => citizen.gender,
+            'state' => 'alive'
+          }
+        )
+      end
+    end
+
+    describe 'Invalid' do
+      let(:params) { citizen.attributes.merge(age: -5) }
+
+      it { expect { post :create, params: params }.to raise_error(ActiveModel::ValidationError) }
+    end
+  end
 end
