@@ -1,24 +1,9 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Учебное приложение с примером использования дополнительных слоёв абстракции.
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Используются:
+* Объекты форм для валидации входящий параметров.
+* Кейсы для хранения бизнес логики.
+* Объекты запроса для хранения логики запроса в БД.
+* Сериалайзеры для хранения логики отображения объектов ответов.
