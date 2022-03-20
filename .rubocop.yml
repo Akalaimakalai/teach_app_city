@@ -15,6 +15,10 @@ RSpec/ExampleLength:
   Enabled: true
   Max: 30
 
+Metrics/BlockLength:
+  Enabled: true
+  Max: 50
+
 Style/FrozenStringLiteralComment:
   Enabled: true
 
