@@ -11,6 +11,10 @@ Layout/LineLength:
   AutoCorrect: true
   IgnoredPatterns: ['(\A|\s)#'] # не проверять комментарии. Особенно полезно для аннотаций в моделях.
 
+RSpec/ExampleLength:
+  Enabled: true
+  Max: 30
+
 Style/FrozenStringLiteralComment:
   Enabled: true
 
