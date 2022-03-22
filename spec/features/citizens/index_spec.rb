@@ -6,7 +6,7 @@ feature 'get collection of citizens', %q(
 ) do
   given!(:citizens) { create_list(:citizen, 2) }
 
-  scenario 'user visit root page' do
+  scenario 'user visits root page' do
     visit citizens_path
 
     citizens.each do |citizen|

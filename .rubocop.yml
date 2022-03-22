@@ -22,6 +22,10 @@ Metrics/BlockLength:
     - configure
     - describe
 
+RSpec/MultipleExpectations:
+  Enabled: true
+  Max: 10
+
 Style/FrozenStringLiteralComment:
   Enabled: true
 
@@ -47,9 +51,7 @@ RSpec/Capybara/FeatureMethods:
   Enabled: false
 
 Style/RedundantPercentQ:
-  Enabled: true
-  Exclude:
-    - 'spec/features/citizens/index_spec.rb'
+  Enabled: false
 
 Naming/RescuedExceptionsVariableName:
   Enabled: false
