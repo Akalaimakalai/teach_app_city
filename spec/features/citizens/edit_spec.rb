@@ -5,9 +5,13 @@ feature 'edit a citizen', %q(
   or correct mistakes
   I'd like to be able to edit a citizen
 ) do
-  given(:citizen) { create(:citizen, name: 'OldCitizenName', age: 91) }
+  given!(:citizen) { create(:citizen, name: 'OldCitizenName', age: 91) }
 
   scenario 'edit the citizen with correct values' do
+    visit root_path
+    expect(page).to have_content('OldCitizenName')
+    expect(page).to have_content(91)
+
     visit edit_citizen_url(citizen)
 
     fill_in 'Name', with: 'ThisNameCannotBeMadeByFaker'
@@ -22,6 +26,10 @@ feature 'edit a citizen', %q(
   end
 
   scenario 'edit the citizen with incorrect values' do
+    visit root_path
+    expect(page).to have_content('OldCitizenName')
+    expect(page).to have_content(91)
+
     visit edit_citizen_url(citizen)
 
     fill_in 'Name', with: 'Ololosh111'
@@ -33,5 +41,20 @@ feature 'edit a citizen', %q(
     expect(page).to have_content(91)
     expect(page).to_not have_content('Ololosh111')
     expect(page).to_not have_content(92)
+  end
+
+  scenario "change citizen's state from alive to dead" do
+    visit root_path
+    expect(page).to have_content('OldCitizenName')
+    expect(page).to have_content(91)
+
+    visit edit_citizen_url(citizen)
+
+    select 'dead', from: 'State'
+    click_on 'Update Citizen'
+
+    expect(page).to have_current_path(root_path)
+    expect(page).to_not have_content('OldCitizenName')
+    expect(page).to_not have_content(91)
   end
 end
