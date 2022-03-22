@@ -42,3 +42,11 @@ Naming/VariableNumber:
 
 RSpec/ContextWording:
   Enabled: false
+
+RSpec/Capybara/FeatureMethods:
+  Enabled: false
+
+Style/RedundantPercentQ:
+  Enabled: true
+  Exclude:
+    - 'spec/features/citizens/index_spec.rb'
