@@ -8,114 +8,120 @@ RSpec.describe CitizensController do
 
     before { get :index }
 
-    it 'returns citizen json collection' do
-      expect(response.parsed_body).to eq(
-        [
-          {
-            'id' => citizen_1.id,
-            'name' => citizen_1.name,
-            'age' => citizen_1.age,
-            'gender' => citizen_1.gender,
-            'state' => citizen_1.state
-          },
-          {
-            'id' => citizen_2.id,
-            'name' => citizen_2.name,
-            'age' => citizen_2.age,
-            'gender' => citizen_2.gender,
-            'state' => citizen_2.state
-          }
-        ]
-      )
+    it 'returns an array of alive citizens' do
+      expect(assigns(:citizens)).to contain_exactly(citizen_1, citizen_2)
+    end
+
+    it 'renders index view' do
+      expect(response).to render_template :index
+    end
+  end
+
+  describe 'GET #new' do
+    before { get :new }
+
+    it 'assigns a new citizen to @citizen' do
+      expect(assigns(:citizen)).to be_a_new(Citizen)
+    end
+
+    it 'renders new view' do
+      expect(response).to render_template :new
     end
   end
 
   describe 'POST #create' do
     let(:citizen) { build(:citizen) }
+    let(:params) { { 'citizen' => citizen.attributes } }
 
     describe 'Valid' do
-      let(:params) { citizen.attributes }
-
-      it 'creates new citizen' do
+      it 'creates a new citizen' do
         expect { post :create, params: params }.to change(Citizen, :count).by(1)
-      end
-
-      it 'returns citizen json' do
-        post :create, params: params
-        expect(response.parsed_body).to eq(
-          {
-            'id' => Citizen.last.id,
-            'name' => citizen.name,
-            'age' => citizen.age,
-            'gender' => citizen.gender,
-            'state' => 'alive'
-          }
-        )
       end
     end
 
     describe 'Invalid' do
-      let(:params) { citizen.attributes.merge(age: -5) }
+      before { citizen.gender = 'KA-52' }
 
-      it { expect { post :create, params: params }.to raise_error(ActiveModel::ValidationError) }
+      it 'does not create a new citizen' do
+        expect { post :create, params: params }.to_not change(Citizen, :count)
+      end
+    end
+
+    it 'redirect to root' do
+      post :create, params: params
+      expect(response).to redirect_to :root
     end
   end
 
-  describe 'PUT #update' do
+  describe 'GET #edit' do
     let(:citizen) { create(:citizen) }
 
-    describe 'Valid' do
-      let(:params) { citizen.attributes.merge(state: 'dead') }
+    before { get :edit, params: { id: citizen } }
 
-      it 'returns citizen json' do
-        put :update, params: params
-        expect(response.parsed_body).to eq(
-          {
-            'id' => Citizen.last.id,
-            'name' => citizen.name,
-            'age' => citizen.age,
-            'gender' => citizen.gender,
-            'state' => 'dead'
-          }
-        )
+    it 'assigns the requested citizen to @citizen' do
+      expect(assigns(:citizen)).to eq citizen
+    end
+
+    it 'renders edit view' do
+      expect(response).to render_template :edit
+    end
+  end
+
+  describe 'PATCH #update' do
+    let(:citizen) { create(:citizen) }
+    let(:params) do
+      {
+        id: citizen,
+        citizen: citizen.attributes.merge(state: 'dead')
+      }
+    end
+
+    describe 'Valid' do
+      it "changes the citizen's attribetes" do
+        expect { put :update, params: params }.to change { Citizen.find(citizen.id).state }.from('alive').to('dead')
       end
     end
 
     describe 'Invalid' do
-      let(:params) { citizen.attributes.merge(age: -5) }
+      let(:params) do
+        {
+          id: citizen,
+          citizen: citizen.attributes.merge(age: -5)
+        }
+      end
 
-      it { expect { put :update, params: params }.to raise_error(ActiveModel::ValidationError) }
+      it "does not change the citizen's attribetes" do
+        expect { put :update, params: params }.to_not(change { Citizen.find(citizen.id).age })
+      end
+    end
+
+    it 'redirect to root' do
+      patch :update, params: params
+      expect(response).to redirect_to :root
     end
   end
 
   describe 'DELETE #destroy' do
     let!(:citizen) { create(:citizen) }
+    let(:params) { { id: citizen.id } }
 
     describe 'Valid' do
-      let(:params) { { id: citizen.id } }
-
-      it 'delete the citizen' do
+      it 'deletes the citizen' do
         expect { delete :destroy, params: params }.to change(Citizen, :count).by(-1)
-      end
-
-      it 'returns citizen json' do
-        delete :destroy, params: params
-        expect(response.parsed_body).to eq(
-          {
-            'id' => citizen.id,
-            'name' => citizen.name,
-            'age' => citizen.age,
-            'gender' => citizen.gender,
-            'state' => citizen.state
-          }
-        )
       end
     end
 
     describe 'Invalid' do
       let(:params) { { id: citizen.id + 8 } }
 
-      it { expect { delete :destroy, params: params }.to raise_error(ActiveRecord::RecordNotFound) }
+      it 'does not delete the citizen' do
+        expect { delete :destroy, params: params }.to_not change(Citizen, :count)
+      end
+    end
+
+    it 'redirect to root' do
+      delete :destroy, params: params
+      expect(response).to redirect_to :root
     end
   end
 end

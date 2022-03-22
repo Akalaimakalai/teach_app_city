@@ -1,0 +1,26 @@
+<div>
+  <h2>New citizen form</h2>
+
+  <div>
+    <%= form_with model: [@citizen], local: true do |citizen| %>
+      <div> 
+        <%= citizen.label :name %>
+        <%= citizen.text_field :name, id: :citizen_name %>
+      </div>
+
+      <div>
+        <%= citizen.label :age %>
+        <%= citizen.number_field :age, id: :citizen_age %>
+      </div>
+
+      <div>
+        <%= citizen.label :gender %>:
+        <%= citizen.select :gender, ['male', 'female']%>
+      </div>
+
+      <div>
+        <%= citizen.submit%>
+      </div>
+    <% end %>
+  </div>
+</div>

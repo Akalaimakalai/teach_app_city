@@ -50,3 +50,6 @@ Style/RedundantPercentQ:
   Enabled: true
   Exclude:
     - 'spec/features/citizens/index_spec.rb'
+
+Naming/RescuedExceptionsVariableName:
+  Enabled: false

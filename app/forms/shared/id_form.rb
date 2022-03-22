@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-module Citizens
-  class DestroyCitizenForm < BaseForm
+module Shared
+  class IdForm < BaseForm
     validate_id
   end
 end

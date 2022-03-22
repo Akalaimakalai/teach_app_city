@@ -2,30 +2,55 @@
 
 class CitizensController < ApplicationController
   def index
-    render json: ::Citizens::IndexCitizens.new.call
+    @citizens = ::Citizens::IndexCitizens.new.call
+  end
+
+  def new
+    @citizen = Citizen.new
   end
 
   def create
-    form = ::Citizens::SaveCitizenForm.new(params.permit!)
+    attributes = HashWithIndifferentAccess.new(params['citizen'].permit!)
+
+    form = ::Citizens::SaveCitizenForm.new(attributes)
     form.validate!
 
     use_case = ::Citizens::CreateCitizen.new
-    render json: use_case.call(form.attributes)
+    use_case.call(form.attributes)
+  rescue StandardError => exception
+    Rails.logger.info "Exception was thrown: #{exception.message}"
+  ensure
+    redirect_to root_path
+  end
+
+  def edit
+    form = Shared::IdForm.new(params.permit!)
+    @citizen = Citizen.find_by(form.attributes)
   end
 
   def update
-    form = ::Citizens::UpdateCitizenForm.new(params.permit!)
+    attributes = HashWithIndifferentAccess.new(params['citizen'].permit!)
+
+    form = ::Citizens::UpdateCitizenForm.new(attributes)
     form.validate!
 
     use_case = ::Citizens::UpdateCitizen.new
-    render json: use_case.call(form.attributes)
+    use_case.call(form.attributes)
+  rescue StandardError => exception
+    Rails.logger.info "Exception was thrown: #{exception.message}"
+  ensure
+    redirect_to root_path
   end
 
   def destroy
-    form = ::Citizens::DestroyCitizenForm.new(params.permit!)
+    form = Shared::IdForm.new(params.permit!)
     form.validate!
 
     use_case = ::Citizens::DestroyCitizen.new
-    render json: use_case.call(form.attributes)
+    use_case.call(form.attributes)
+  rescue StandardError => exception
+    Rails.logger.info "Exception was thrown: #{exception.message}"
+  ensure
+    redirect_to root_path
   end
 end

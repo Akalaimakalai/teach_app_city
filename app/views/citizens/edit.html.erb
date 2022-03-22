@@ -1,0 +1,39 @@
+<div>
+  <h2>Edit the citizen</h2>
+
+  <div>
+    <%= form_with model: [@citizen], local: true do |citizen| %>
+      <div> 
+        <%= citizen.label :name %>
+        <%= citizen.text_field :name, id: :citizen_name %>
+      </div>
+
+      <div>
+        <%= citizen.label :age %>
+        <%= citizen.number_field :age, id: :citizen_age %>
+      </div>
+
+      <div>
+        <%= citizen.label :gender %>:
+        <%= citizen.select :gender, ['male', 'female']%>
+      </div>
+
+      <div>
+        <%= citizen.label :state %>:
+        <%= citizen.select :state, ['alive', 'dead']%>
+      </div>
+
+      <div hidden>
+        <%= citizen.number_field :id, id: citizen.id %>
+      </div>
+
+      <div>
+        <%= citizen.submit%>
+      </div>
+
+      <div>
+        <%= citizen.button "Delete", formmethod: :delete%>
+      </div>
+    <% end %>
+  </div>
+</div>

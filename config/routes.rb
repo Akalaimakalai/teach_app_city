@@ -3,5 +3,5 @@
 Rails.application.routes.draw do
   root to: 'citizens#index'
 
-  resources :citizens, only: %i[index create update destroy]
+  resources :citizens, except: :show
 end
