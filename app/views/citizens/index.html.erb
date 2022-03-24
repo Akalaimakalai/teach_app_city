@@ -9,7 +9,6 @@
         <th scope="col"></th>
       </tr>
     </thead>
-
-    <%= render @citizens %>
+      <%= render partial: 'citizens/citizen', collection: @citizens, cached: true %>
   </table>
 </div>
