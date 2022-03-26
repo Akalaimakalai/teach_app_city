@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Citizen < ApplicationRecord
+  include ::NativeSpeaking
+
   NAME_FORMAT = /\A[a-z ,.'-]+\z/i
   GENDERS = %w[male female].freeze
   STATES = %w[alive dead].freeze
