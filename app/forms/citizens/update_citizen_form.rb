@@ -2,10 +2,10 @@
 
 module Citizens
   class UpdateCitizenForm < SaveCitizenForm
+    attribute :id, Integer
     attribute :state, String
 
     validates :state, inclusion: { in: Citizen::STATES }
-
-    validate_id
+    validates :id, numericality: { greater_than: 0 }
   end
 end

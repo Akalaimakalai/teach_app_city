@@ -2,6 +2,8 @@
 
 module Shared
   class IdForm < BaseForm
-    validate_id
+    attribute :id, Integer
+
+    validates :id, numericality: { greater_than: 0 }
   end
 end
