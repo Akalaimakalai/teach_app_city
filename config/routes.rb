@@ -8,4 +8,12 @@ Rails.application.routes.draw do
   devise_for :users
 
   resources :citizens, except: :show
+
+  namespace :api do
+    namespace :v1 do
+      resources :profiles, only: [] do
+        get :me, on: :collection
+      end
+    end
+  end
 end
