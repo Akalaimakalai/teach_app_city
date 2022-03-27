@@ -59,6 +59,8 @@ gem 'faker'
 gem 'active_model_serializers'
 # Forms
 gem 'virtus'
+# OAuth provider
+gem 'doorkeeper'
 
 # ---end---
 
