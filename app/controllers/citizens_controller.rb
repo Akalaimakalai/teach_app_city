@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class CitizensController < ApplicationController
+  before_action :authenticate_user!
+
   def index
     @citizens = ::Citizens::IndexCitizens.new.call
   end

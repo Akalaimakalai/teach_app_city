@@ -11,4 +11,8 @@
     </thead>
       <%= render partial: 'citizens/citizen', collection: @citizens, cached: true %>
   </table>
+
+  <div>
+    <%= link_to "Logout", destroy_user_session_url, data: { "turbo-method": :delete, confirm: "Are you sure?" } %>
+  </div>
 </div>

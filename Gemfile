@@ -61,6 +61,8 @@ gem 'active_model_serializers'
 gem 'virtus'
 # OAuth provider
 gem 'doorkeeper'
+# Authentication
+gem 'devise'
 
 # ---end---
 
@@ -90,6 +92,13 @@ group :development do
 
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
+
+  # ===MY GEMS===
+
+  # Auto opening letters from ActionMailer
+  gem "letter_opener"
+
+  # ---end---
 end
 
 group :test do
